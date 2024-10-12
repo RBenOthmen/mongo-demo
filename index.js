@@ -29,7 +29,9 @@ async function createCourse() {
 
 async function getCourses() {
     const courses = await Course
-        .find({ author: 'Mosh Hamedani', isPublished: true })
+        // .find({ author: 'Mosh Hamedani', isPublished: true })
+        // .find({ price: { $gte: 10, $lte: 20 } })
+        .find({ price: { $in: [10, 15, 20] } })
         .limit(10)
         .sort({ name: 1 })
         .select({ name: 1, tags: 1 });
