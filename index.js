@@ -30,9 +30,10 @@ async function createCourse() {
 async function getCourses() {
     const courses = await Course
         .find({ author: 'Mosh Hamedani', isPublished: true })
-        .limit(10)
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
         .sort({ name: 1 })
-        .countDocuments()
+        .countDocuments();
     console.log(courses);
 }
 
