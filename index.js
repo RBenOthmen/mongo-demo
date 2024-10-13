@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose
-    .connect('mongodb://localhost/mongo-exercises')
+    .connect('mongodb://localhost/playground')
     .then(() => console.log('Connected to MongoDB...'))
     .catch((err) => console.error('Could not connect to MongoDB...', err));
 
@@ -28,12 +28,24 @@ async function createCourse() {
 }
 
 async function getCourses() {
-    const courses = await Course
-        .find({ isPublished: true })
-        .sort({ name: 1 })
-        .select({ name: 1, author: 1 })
-        // .countDocuments();
+    const courses = await Course.find({ isPublished: true }).sort({ name: 1 }).select({ name: 1, author: 1 });
+    // .countDocuments();
     console.log(courses);
 }
 
-getCourses();
+async function updateCourse(id) {
+    const course = await Course.findById(id);
+    console.log(course);
+    console.log(id);
+    if (!course) return;
+
+    course.isPublished = true;
+    course.author = 'Another Author';
+
+    const result = await course.save();
+    console.log(result);
+}
+
+// getCourses();
+// createCourse();
+updateCourse('670aa11e8bee494a0d4b46aa');
