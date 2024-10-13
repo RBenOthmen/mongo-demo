@@ -29,18 +29,10 @@ async function createCourse() {
 
 async function getCourses() {
     const courses = await Course
-        // .find({ author: 'Mosh Hamedani', isPublished: true })
-        // Starts with
-        .find({ author: /^Mosh/ })
-        // Ends with
-        .find({ author: /Hamedani$/ })
-        // Ends with / Case incensitive
-        .find({ author: /Hamedani$/i })
-        // Contains
-        .find({ author: /.*Mosh*./ })
+        .find({ author: 'Mosh Hamedani', isPublished: true })
         .limit(10)
         .sort({ name: 1 })
-        .select({ name: 1, tags: 1 });
+        .countDocuments()
     console.log(courses);
 }
 
